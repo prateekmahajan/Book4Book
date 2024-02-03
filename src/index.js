@@ -29,6 +29,12 @@ mongoose.connect(config.get('db'))
   .catch(reject => console.log("Can't connect to database", reject))
 
 
+//Logs
+console.log('Current environment : ', process.env.NODE_ENV);
+console.log(config.get('port') ? 'PORT set successfully' : "Port environment variable not set");
+console.log(config.get('db') ? 'DB set successfully' : "DB environment variable not set");
+
+
 
 // Error handling to notify client
 app.use((error, request, response, next) => {
