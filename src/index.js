@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const config = require('config')
 const helmet = require('helmet')
 const compression = require('compression')
+const authRoute = require('./routes/authRoute')
 const app = express()
 
 
@@ -15,6 +16,7 @@ process.on('unhandledRejection', (error) => console.log('Unhandled Rejections', 
 app.use(express.json())
 app.use(helmet())
 app.use(compression())
+app.use('/auth', authRoute)
 app.get('/', (request, response) => response.send('Deployment is successful and site is live'))
 
 
@@ -27,6 +29,12 @@ mongoose.connect(config.get('db'))
     app.listen(config.get('port'), () => console.log(`Listning in port ${config.get('port')}...`))
   })
   .catch(reject => console.log("Can't connect to database", reject))
+
+
+//Logs
+console.log('Current environment : ', process.env.NODE_ENV);
+console.log(config.get('port') ? 'PORT set successfully' : "Port environment variable not set");
+console.log(config.get('db') ? 'DB set successfully' : "DB environment variable not set");
 
 
 
