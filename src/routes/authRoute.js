@@ -2,7 +2,6 @@ const express = require('express')
 const jwt = require('jsonwebtoken')
 const config = require('config')
 const ProfileModel = require('../Models/ProfileModel')
-const { hashPassword } = require('../utilities/utilityFunctions');
 const route = express.Router()
 
 
@@ -15,13 +14,14 @@ route.post('/signup', async (request, response) => {
   try {
     const profile = await new ProfileModel({
       email,
-      password: await hashPassword(password),
+      password,
     }).save()
     response.send(signAuthToken(profile._id))
   } catch (error) {
     error.code === 11000
       ? response.status(409).send('An account with the provided email or phone already exists.')
       : response.status(500).send('Internal error')
+      console.log(error);
   }
 })
 

@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const config = require('config')
 const helmet = require('helmet')
 const compression = require('compression')
+const authRoute = require('./routes/authRoute')
 const app = express()
 
 
@@ -15,6 +16,7 @@ process.on('unhandledRejection', (error) => console.log('Unhandled Rejections', 
 app.use(express.json())
 app.use(helmet())
 app.use(compression())
+app.use('/auth', authRoute)
 app.get('/', (request, response) => response.send('Deployment is successful and site is live'))
 
 
