@@ -1,4 +1,7 @@
 {
   "db": null,
-  "port": null
+  "port": null,
+  "gcpProjectId": "antarac",
+  "gcpActivityImagesBucket": "antarac-development",
+  "jwtSecretKey": "jwtSecretKey"
 }
